@@ -1,8 +1,5 @@
 pipeline {
     agent any 
-    environment {
-        SCANNER_HOME = tool ''
-    }
     stages {
         stage('sonar-quality-check') {
             agent {
