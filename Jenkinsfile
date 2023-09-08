@@ -11,7 +11,7 @@ pipeline {
                 script {
                     withSonarQubeEnv(credentialsId: 'sonar') {
                         sh 'chmod +x gradlew'
-                        sh './gradlew sonarqube'
+                        sh './gradlew sonarqube  --warning-mode=all'
                     }
                      timeout(time: 5, unit: 'MINUTES') {
                       def qg = waitForQualityGate()
