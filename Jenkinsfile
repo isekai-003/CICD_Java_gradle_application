@@ -2,6 +2,7 @@ pipeline {
     agent any 
     tools {
         maven 'maven3'
+        jdk 'java'
     }
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
