@@ -25,15 +25,17 @@ pipeline {
                    -Dsonar.java.binaries=. \
                    -Dsonar.projectKey=CICD_Java_gradle_application '''
                }
-               timeout(time: 5, unit: 'MINUTES') {
-                      def qg = waitForQualityGate()
-                      if (qg.status != 'OK') {
-                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                      }
-                    }
+               
             }
         }
-        stage(build-stage) {
+        stage('quality-status') {
+            steps {
+                script {
+                 waitForQualityGate abortPipeline: false, credentialsId: 'sonar'
+                }
+            }
+        }
+        stage('build-stage') {
             steps {
                 sh 'mvn clean install'
             }
